@@ -25,14 +25,12 @@ import cz.muni.fi.hackaton.Pexeso.model.User;
  *
  * @author Martin Zitnik
  */
-
 @ViewScoped
 @Named
-public class GameController  implements Serializable{
-	
-	@Inject
-	private Logger log;
-	
+public class GameController implements Serializable {
+
+    @Inject
+    private Logger log;
     private User user;
     private Calendar startTime = Calendar.getInstance();
     private Integer flippedCard;
@@ -47,23 +45,23 @@ public class GameController  implements Serializable{
     public Integer getSecondFlippedCard() {
         return secondFlippedCard;
     }
-    
+
     public String getPrefferedBacon() {
-    	if(secondFlippedCard!=null) {
-    		int i = new Random().nextInt(cards.get(secondFlippedCard).getBacons().size());
-    		return cards.get(secondFlippedCard).getBacons().get(i).getValue();
-    	}
-    	
-    	if(flippedCard != null) {
-    		int i = new Random().nextInt(cards.get(flippedCard).getBacons().size());
-    		return cards.get(flippedCard).getBacons().get(i).getValue();
-    	}
-    	
-    	return "";
+        if (secondFlippedCard != null) {
+            int i = new Random().nextInt(cards.get(secondFlippedCard).getBacons().size());
+            return cards.get(secondFlippedCard).getBacons().get(i).getValue();
+        }
+
+        if (flippedCard != null) {
+            int i = new Random().nextInt(cards.get(flippedCard).getBacons().size());
+            return cards.get(flippedCard).getBacons().get(i).getValue();
+        }
+
+        return "";
     }
-    
+
     public boolean isSelected(int index) {
-    	return (flippedCard!=null && flippedCard.intValue() == index) || (secondFlippedCard != null && secondFlippedCard.intValue() == index);
+        return (flippedCard != null && flippedCard.intValue() == index) || (secondFlippedCard != null && secondFlippedCard.intValue() == index);
     }
 
     public User getUser() {
@@ -77,71 +75,61 @@ public class GameController  implements Serializable{
     public Boolean getIsEnd() {
         return isEnd;
     }
-    
-    
     @Inject
     private CardManager cm;
-    
-    
+
     @PostConstruct
-    private void loadCards(){
+    private void loadCards() {
         List<Card> allCards = cm.getAll();
         Collections.shuffle(allCards);
-        
+
         List<Card> lessCards = new ArrayList<Card>();
-        
-        for(int i=0; i < 18; i++){
+
+        for (int i = 0; i < 18; i++) {
             lessCards.add(allCards.get(i));
             lessCards.add(allCards.get(i));
         }
-        
+
         Collections.shuffle(lessCards);
-        
+
         cards = lessCards;
     }
-    
-    private void isEnd(){
+
+    private void isEnd() {
         int counter = 0;
-        for(Card c : cards){
-            if(c.getIsActive()){
+        for (Card c : cards) {
+            if (c.getIsActive()) {
                 counter++;
-            } else{
-                
+            } else {
             }
         }
-        if(counter == 0){
+        if (counter == 0) {
             isEnd = true;
         }
     }
-    
-    
-    public void flipCard(int index){
-       if(flippedCard == null){
+
+    public void flipCard(int index) {
+        if (flippedCard == null) {
             flippedCard = index;
-        } else{
-            secondFlippedCard = index;
-            
-            if(flippedCard.equals(secondFlippedCard)){
-                cards.get(flippedCard).setIsActive(false);
-                cards.get(secondFlippedCard).setIsActive(false);
-                isEnd();
-                
-                flippedCard = null;
-                secondFlippedCard = null;
-                
-                                                                    
+        } else {
+            if (secondFlippedCard == null && index != flippedCard) {
+                secondFlippedCard = index;
+
+                if (flippedCard.equals(secondFlippedCard)) {
+                    cards.get(flippedCard).setIsActive(false);
+                    cards.get(secondFlippedCard).setIsActive(false);
+                    isEnd();
+                }
             }
         }
     }
-    
-    public List<Card> getCards(){
-       return cards;
+
+    public List<Card> getCards() {
+        return cards;
     }
-    
-    public void setNullCards(){
+
+    public void setNullCards() {
         flippedCard = null;
         secondFlippedCard = null;
     }
-    
-    
 }
