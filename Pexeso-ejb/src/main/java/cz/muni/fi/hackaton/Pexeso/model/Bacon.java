@@ -24,7 +24,7 @@ public class Bacon implements Serializable {
     
     private String value;
     
-    @ManyToOne
+    @ManyToOne(optional=false)
     private Card card;
 
     public Card getCard() {

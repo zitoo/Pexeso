@@ -7,6 +7,8 @@ package cz.muni.fi.hackaton.Pexeso.model;
 import java.io.Serializable;
 import java.net.URL;
 import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -20,6 +22,7 @@ import javax.persistence.OneToMany;
 @Entity
 public class Card implements Serializable {
     private static final long serialVersionUID = 1L;
+    
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
@@ -27,7 +30,7 @@ public class Card implements Serializable {
     private String name;
     private URL image;
     
-    @OneToMany
+    @OneToMany(cascade=CascadeType.ALL)
     private List<Bacon> bacons;
 
     public String getName() {
