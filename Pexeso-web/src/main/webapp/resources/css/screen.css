@@ -9,13 +9,9 @@ body {
 }
 
 #container {
-  margin: 0 auto;
+  margin: 0px auto;
   padding: 0 20px 10px 20px;
-  border-top: 5px solid #000000;
-  border-left: 5px solid #8c8f91;
-  border-right: 5px solid #8c8f91;
-  border-bottom: 25px solid #8c8f91;
-  width: 865px; /* subtract 40px from banner width for padding */
+  width: 90%;
   background: #FFFFFF;
   background-image: url(#{request.contextPath}/resources/gfx/headerbkg.png);
   background-repeat: repeat-x;
@@ -184,3 +180,24 @@ input {
   color:#3883ce;
   text-decoration:none; 
 }
+
+/* game */
+.card {
+	border: 3px solid black;
+	cursor: pointer;
+	
+}
+
+.selectedcard {
+	background-color: lightgray;
+}
+
+.game {
+	white-space: nowrap;
+	width: auto;
+}
+
+.right {
+	
+}
+

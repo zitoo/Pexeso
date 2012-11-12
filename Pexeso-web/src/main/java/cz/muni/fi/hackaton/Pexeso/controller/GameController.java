@@ -4,18 +4,22 @@
  */
 package cz.muni.fi.hackaton.Pexeso.controller;
 
-import cz.muni.fi.hackaton.Pexeso.data.CardManager;
-import cz.muni.fi.hackaton.Pexeso.model.Card;
-import cz.muni.fi.hackaton.Pexeso.model.User;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
 import java.util.List;
+import java.util.Random;
+import java.util.logging.Logger;
+
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
+
+import cz.muni.fi.hackaton.Pexeso.data.CardManager;
+import cz.muni.fi.hackaton.Pexeso.model.Card;
+import cz.muni.fi.hackaton.Pexeso.model.User;
 
 /**
  *
@@ -25,19 +29,41 @@ import javax.inject.Named;
 @ViewScoped
 @Named
 public class GameController  implements Serializable{
+	
+	@Inject
+	private Logger log;
+	
     private User user;
     private Calendar startTime = Calendar.getInstance();
-    private Card flippedCard;
-    private Card secondFlippedCard;
+    private Integer flippedCard;
+    private Integer secondFlippedCard;
     private List<Card> cards;
     private Boolean isEnd = false;
 
-    public Card getFlippedCard() {
+    public Integer getFlippedCard() {
         return flippedCard;
     }
 
-    public Card getSecondFlippedCard() {
+    public Integer getSecondFlippedCard() {
         return secondFlippedCard;
+    }
+    
+    public String getPrefferedBacon() {
+    	if(secondFlippedCard!=null) {
+    		int i = new Random().nextInt(cards.get(secondFlippedCard).getBacons().size());
+    		return cards.get(secondFlippedCard).getBacons().get(i).getValue();
+    	}
+    	
+    	if(flippedCard != null) {
+    		int i = new Random().nextInt(cards.get(flippedCard).getBacons().size());
+    		return cards.get(flippedCard).getBacons().get(i).getValue();
+    	}
+    	
+    	return "";
+    }
+    
+    public boolean isSelected(int index) {
+    	return (flippedCard!=null && flippedCard.intValue() == index) || (secondFlippedCard != null && secondFlippedCard.intValue() == index);
     }
 
     public User getUser() {
@@ -89,15 +115,15 @@ public class GameController  implements Serializable{
     }
     
     
-    public void flipCard(int arrayPosition){
-        if(flippedCard == null){
-            flippedCard = cards.get(arrayPosition);
+    public void flipCard(int index){
+       if(flippedCard == null){
+            flippedCard = index;
         } else{
-            secondFlippedCard = cards.get(arrayPosition);
+            secondFlippedCard = index;
             
             if(flippedCard.equals(secondFlippedCard)){
-                flippedCard.setIsActive(false);
-                secondFlippedCard.setIsActive(false);
+                cards.get(flippedCard).setIsActive(false);
+                cards.get(secondFlippedCard).setIsActive(false);
                 isEnd();
                 
                 flippedCard = null;

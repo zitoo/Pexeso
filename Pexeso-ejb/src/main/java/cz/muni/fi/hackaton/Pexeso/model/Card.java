@@ -5,11 +5,11 @@
 package cz.muni.fi.hackaton.Pexeso.model;
 
 import java.io.Serializable;
-import java.net.URL;
 import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -31,9 +31,9 @@ public class Card implements Serializable {
     @Transient
     private Boolean isActive = true;
     private String name;
-    private URL image;
+    private String image;
     
-    @OneToMany(cascade=CascadeType.ALL, mappedBy="card")
+    @OneToMany(cascade=CascadeType.ALL, mappedBy="card", fetch=FetchType.EAGER)
     private List<Bacon> bacons;
 
     public Boolean getIsActive() {
@@ -53,11 +53,11 @@ public class Card implements Serializable {
     }
 
 
-    public URL getImage() {
+    public String getImage() {
         return image;
     }
 
-    public void setImage(URL image) {
+    public void setImage(String image) {
         this.image = image;
     }
 

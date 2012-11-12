@@ -3,15 +3,33 @@
    xmlns:f="http://java.sun.com/jsf/core"
    xmlns:h="http://java.sun.com/jsf/html"
    template="/WEB-INF/templates/default.xhtml"
-   xmlns:rich="http://richfaces.org/rich">
+   xmlns:rich="http://richfaces.org/rich"
+                xmlns:a4j="http://richfaces.org/a4j">
    <ui:define name="content">
    
-   <rich:panel >
-   	<rich:dataGrid>
-   	
+   <h:form>
+   <h:panelGrid id="cards" columns="2">
+   <rich:panel styleClass="game">
+   	<rich:dataGrid value="#{gameController.cards}" var="card"  iterationStatusVar="state" columns="6" style="position: static" >
+		<rich:panel styleClass="#{gameController.isSelected(state.index)? 'selectedcard card': 'card'}">
+   			<h:outputText value="#{card.id}" /><br/>
+   			<h:outputText value="#{card.name}" />
+					
+			<a4j:ajax event="click" listener="#{gameController.flipCard(state.index)}" render="cards details" />
+		</rich:panel>
+		
+		
    	</rich:dataGrid>
-   	
    </rich:panel>
    
+   <rich:panel id="details" styleClass="right" >
+   	<h3>(čas)</h3>
+   	<rich:panel header="Information">
+   		<p><h:outputText value="#{gameController.prefferedBacon}" /> </p>
+   	</rich:panel>
+   	
+   </rich:panel>
+   </h:panelGrid>
+   </h:form>
    </ui:define>
    </ui:composition>
