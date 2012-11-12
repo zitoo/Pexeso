@@ -36,6 +36,14 @@ public class Card implements Serializable {
     @OneToMany(cascade=CascadeType.ALL)
     private List<Bacon> bacons;
 
+    public Boolean getIsActive() {
+        return isActive;
+    }
+
+    public void setIsActive(Boolean isActive) {
+        this.isActive = isActive;
+    }
+    
     public String getName() {
         return name;
     }
