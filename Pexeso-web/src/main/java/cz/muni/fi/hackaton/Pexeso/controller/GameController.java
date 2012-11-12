@@ -7,6 +7,7 @@ package cz.muni.fi.hackaton.Pexeso.controller;
 import cz.muni.fi.hackaton.Pexeso.data.CardManager;
 import cz.muni.fi.hackaton.Pexeso.model.Card;
 import cz.muni.fi.hackaton.Pexeso.model.User;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
@@ -23,7 +24,7 @@ import javax.inject.Named;
 
 @ViewScoped
 @Named
-public class GameController {
+public class GameController  implements Serializable{
     private User user;
     private Calendar startTime = Calendar.getInstance();
     private Card flippedCard;
