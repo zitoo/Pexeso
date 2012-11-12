@@ -1,74 +1,173 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
-   <modelVersion>4.0.0</modelVersion>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
 
-   <parent>
-      <artifactId>Pexeso</artifactId>
-      <groupId>cz.muni.fi.hackaton</groupId>
-      <version>0.0.1-SNAPSHOT</version>
-   </parent>
+	<parent>
+		<artifactId>Pexeso</artifactId>
+		<groupId>cz.muni.fi.hackaton</groupId>
+		<version>0.0.1-SNAPSHOT</version>
+	</parent>
 
-   <artifactId>Pexeso-web</artifactId>
-   <packaging>war</packaging>
+	<artifactId>Pexeso-web</artifactId>
+	<packaging>war</packaging>
 
-   <name>Pexeso Web module</name>
+	<name>Pexeso Web module</name>
 
-   <dependencies>
+	<properties>
+		<org.richfaces.bom.version>4.2.3.Final</org.richfaces.bom.version>
+	</properties>
 
-      <!-- Dependency on the EJB module so we can use it's services if needed -->
-      <dependency>
-         <groupId>cz.muni.fi.hackaton</groupId>
-         <artifactId>Pexeso-ejb</artifactId>
-         <type>ejb</type>
-         <scope>provided</scope>
-      </dependency>
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>org.richfaces</groupId>
+				<artifactId>richfaces-bom</artifactId>
+				<version>${org.richfaces.bom.version}</version>
+				<scope>import</scope>
+				<type>pom</type>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
 
-      <!-- Import the JAX-RS API, we use provided scope as the API is included 
-         in JBoss AS 7 -->
-      <dependency>
-         <groupId>org.jboss.spec.javax.ws.rs</groupId>
-         <artifactId>jboss-jaxrs-api_1.1_spec</artifactId>
-         <scope>provided</scope>
-      </dependency>
+	<dependencies>
 
-      <!-- Import the CDI API, we use provided scope as the API is included 
-         in JBoss AS 7 -->
-      <dependency>
-         <groupId>javax.enterprise</groupId>
-         <artifactId>cdi-api</artifactId>
-         <scope>provided</scope>
-      </dependency>
-      
-      <!-- Import the JSF API, we use provided scope as the API is included 
-         in JBoss AS 7 -->
-      <dependency>
-         <groupId>org.jboss.spec.javax.faces</groupId>
-         <artifactId>jboss-jsf-api_2.1_spec</artifactId>
-         <scope>provided</scope>
-      </dependency>
+		<!-- Dependency on the EJB module so we can use it's services if needed -->
+		<dependency>
+			<groupId>cz.muni.fi.hackaton</groupId>
+			<artifactId>Pexeso-ejb</artifactId>
+			<type>ejb</type>
+			<scope>provided</scope>
+		</dependency>
 
-      <!-- Import the JPA API, we use provided scope as the API is included 
-         in JBoss AS 7 -->
-      <dependency>
-         <groupId>org.hibernate.javax.persistence</groupId>
-         <artifactId>hibernate-jpa-2.0-api</artifactId>
-         <scope>provided</scope>
-      </dependency>
+		<!-- Import the JAX-RS API, we use provided scope as the API is included 
+			in JBoss AS 7 -->
+		<dependency>
+			<groupId>org.jboss.spec.javax.ws.rs</groupId>
+			<artifactId>jboss-jaxrs-api_1.1_spec</artifactId>
+			<scope>provided</scope>
+		</dependency>
 
-   </dependencies>
+		<!-- Import the CDI API, we use provided scope as the API is included in 
+			JBoss AS 7 -->
+		<dependency>
+			<groupId>javax.enterprise</groupId>
+			<artifactId>cdi-api</artifactId>
+			<scope>provided</scope>
+		</dependency>
 
-   <build>
-      <plugins>
-         <plugin>
-            <artifactId>maven-war-plugin</artifactId>
-            <version>2.1.1</version>
-            <configuration>
-               <!-- Java EE 6 doesn't require web.xml, Maven needs to catch 
-                  up! -->
-               <failOnMissingWebXml>false</failOnMissingWebXml>
-            </configuration>
-         </plugin>
-      </plugins>
-   </build>
+		<!-- Import the JSF API, we use provided scope as the API is included in 
+			JBoss AS 7 -->
+		<dependency>
+			<groupId>org.jboss.spec.javax.faces</groupId>
+			<artifactId>jboss-jsf-api_2.1_spec</artifactId>
+			<scope>provided</scope>
+		</dependency>
+
+		<!-- Import the JPA API, we use provided scope as the API is included in 
+			JBoss AS 7 -->
+		<dependency>
+			<groupId>org.hibernate.javax.persistence</groupId>
+			<artifactId>hibernate-jpa-2.0-api</artifactId>
+			<scope>provided</scope>
+		</dependency>
+
+		<!-- RichFaces -->
+		<dependency>
+			<groupId>org.richfaces.ui</groupId>
+			<artifactId>richfaces-components-ui</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.richfaces.core</groupId>
+			<artifactId>richfaces-core-impl</artifactId>
+		</dependency>
+
+		<!-- Seam faces -->
+		<dependency>
+			<groupId>org.jboss.seam.faces</groupId>
+			<artifactId>seam-faces-api</artifactId>
+			<version>3.1.0.Final</version>
+		</dependency>
+		<dependency>
+			<groupId>org.jboss.seam.faces</groupId>
+			<artifactId>seam-faces</artifactId>
+			<version>3.1.0.Final</version>
+			<scope>runtime</scope>
+		</dependency>
+
+		<!-- Seam international -->
+		<dependency>
+			<groupId>org.jboss.seam.international</groupId>
+			<artifactId>seam-international-api</artifactId>
+			<version>3.1.0.Final</version>
+		</dependency>
+		<dependency>
+			<groupId>org.jboss.seam.international</groupId>
+			<artifactId>seam-international</artifactId>
+			<version>3.1.0.Final</version>
+			<scope>runtime</scope>
+		</dependency>
+		<dependency>
+			<groupId>joda-time</groupId>
+			<artifactId>joda-time</artifactId>
+			<version>1.6</version>
+		</dependency>
+
+	</dependencies>
+
+	<build>
+		<plugins>
+			<plugin>
+				<artifactId>maven-war-plugin</artifactId>
+				<version>2.1.1</version>
+				<configuration>
+					<!-- Java EE 6 doesn't require web.xml, Maven needs to catch up! -->
+					<failOnMissingWebXml>false</failOnMissingWebXml>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+	
+	<profiles>
+    <profile>
+       <id>jboss-public-repository</id>
+       <activation>
+          <property>
+             <name>jboss-public-repository</name>
+             <value>!false</value>
+          </property>
+       </activation>
+       <repositories>
+          <repository>
+             <id>jboss-public-repository-group</id>
+             <name>JBoss Public Maven Repository Group</name>
+             <url>http://repository.jboss.org/nexus/content/groups/public</url>
+             <releases>
+                <enabled>true</enabled>
+                <updatePolicy>never</updatePolicy>
+             </releases>
+             <snapshots>
+                <enabled>false</enabled>
+                <updatePolicy>never</updatePolicy>
+             </snapshots>
+          </repository>
+       </repositories>
+       <pluginRepositories>
+          <pluginRepository>
+             <id>jboss-public-repository-group</id>
+             <name>JBoss Public Maven Repository Group</name>
+             <url>http://repository.jboss.org/nexus/content/groups/public</url>
+             <releases>
+                <enabled>true</enabled>
+                <updatePolicy>never</updatePolicy>
+             </releases>
+             <snapshots>
+                <enabled>false</enabled>
+                <updatePolicy>never</updatePolicy>
+             </snapshots>
+          </pluginRepository>
+       </pluginRepositories>
+    </profile>
+ </profiles>
 
 </project>
