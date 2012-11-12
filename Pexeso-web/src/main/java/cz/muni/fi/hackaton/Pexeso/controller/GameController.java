@@ -29,6 +29,7 @@ public class GameController {
     private Card flippedCard;
     private Card secondFlippedCard;
     private List<Card> cards;
+    private Boolean isEnd = false;
 
     public Card getFlippedCard() {
         return flippedCard;
@@ -45,6 +46,10 @@ public class GameController {
     public Calendar getStartTime() {
         return startTime;
     }
+
+    public Boolean getIsEnd() {
+        return isEnd;
+    }
     
     
     @Inject
@@ -52,13 +57,13 @@ public class GameController {
     
     
     @PostConstruct
-    private void loadCards(int count){
+    private void loadCards(){
         List<Card> allCards = cm.getAll();
-        Collections.shuffle(cards);
+        Collections.shuffle(allCards);
         
         List<Card> lessCards = new ArrayList<Card>();
         
-        for(int i=0; i < count; i++){
+        for(int i=0; i < 18; i++){
             lessCards.add(allCards.get(i));
             lessCards.add(allCards.get(i));
         }
@@ -66,6 +71,20 @@ public class GameController {
         Collections.shuffle(lessCards);
         
         cards = lessCards;
+    }
+    
+    private void isEnd(){
+        int counter = 0;
+        for(Card c : cards){
+            if(c.getIsActive()){
+                counter++;
+            } else{
+                
+            }
+        }
+        if(counter == 0){
+            isEnd = true;
+        }
     }
     
     
@@ -78,6 +97,7 @@ public class GameController {
             if(flippedCard.equals(secondFlippedCard)){
                 flippedCard.setIsActive(false);
                 secondFlippedCard.setIsActive(false);
+                isEnd();
                 
                 flippedCard = null;
                 secondFlippedCard = null;
@@ -90,10 +110,9 @@ public class GameController {
         }
     }
     
-    
-    
- 
-    
+    public List<Card> getCards(){
+       return cards;
+    }
     
     
 }
