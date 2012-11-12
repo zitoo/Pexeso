@@ -33,7 +33,7 @@ public class Card implements Serializable {
     private String name;
     private URL image;
     
-    @OneToMany(cascade=CascadeType.ALL)
+    @OneToMany(cascade=CascadeType.ALL, mappedBy="card")
     private List<Bacon> bacons;
 
     public Boolean getIsActive() {
