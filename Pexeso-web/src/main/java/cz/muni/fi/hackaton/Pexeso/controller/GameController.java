@@ -130,15 +130,17 @@ public class GameController  implements Serializable{
                 secondFlippedCard = null;
                 
                                                                     
-            } else{
-                flippedCard = null;
-                secondFlippedCard = null;
             }
         }
     }
     
     public List<Card> getCards(){
        return cards;
+    }
+    
+    public void setNullCards(){
+        flippedCard = null;
+        secondFlippedCard = null;
     }
     
     
