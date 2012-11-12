@@ -25,7 +25,6 @@ public class Card implements Serializable {
     private Long id;
     
     private String name;
-    private String info;
     private URL image;
     
     @OneToMany
@@ -39,13 +38,6 @@ public class Card implements Serializable {
         this.name = name;
     }
 
-    public String getInfo() {
-        return info;
-    }
-
-    public void setInfo(String info) {
-        this.info = info;
-    }
 
     public URL getImage() {
         return image;
@@ -95,7 +87,7 @@ public class Card implements Serializable {
 
     @Override
     public String toString() {
-        return "Card{" + "id=" + id + ", name=" + name + ", info=" + info + ", image=" + image + ", bacons=" + bacons + '}';
+        return "Card{" + "id=" + id + ", name=" + name + ", image=" + image + ", bacons=" + bacons + '}';
     }
 
   

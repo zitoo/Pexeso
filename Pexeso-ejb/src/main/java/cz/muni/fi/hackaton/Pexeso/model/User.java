@@ -49,7 +49,6 @@ public class User implements Serializable {
         this.hitCount = hitCount;
     }
     
-    
 
     public Long getId() {
         return id;
