@@ -83,9 +83,8 @@ span.invalid {
 form {
   padding: 1em;
   font: 80%/1 sans-serif;
-  width: 375px;
-  border: 1px solid #D5D5D5;
 }
+
 label {
   float: left;
   width: 15%;
@@ -183,9 +182,9 @@ input {
 
 /* game */
 .card {
-	border: 3px solid black;
+	border: 2px solid black;
 	cursor: pointer;
-	
+	border-radius: 5px;
 }
 
 .selectedcard {
@@ -198,6 +197,16 @@ input {
 }
 
 .right {
-	
+	width: 300px;
+	top: 0px;
+	position: relative;
+}
+
+.hidden {
+	visibility: hidden;
+}
+
+.ontop td {
+	vertical-align: top;
 }
 
